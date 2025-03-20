@@ -9,20 +9,20 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
+    public function up()
     {
         Schema::create('produits', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('code_barre')->unique();
-            $table->foreignId('rayon_id')->constrained()->onDelete('cascade');
             $table->text('description')->nullable();
-            $table->decimal('prix', 10, 2);
-            $table->string('image_url')->nullable();
-            $table->boolean('populaire')->default(false);
-            $table->boolean('actif')->default(true);
+            $table->decimal('prix', 8, 2);
+            $table->unsignedBigInteger('rayon_id');
+            $table->string('categorie');
+            $table->boolean('en_promotion')->default(false);
+            $table->integer('nb_ventes')->default(0);
             $table->timestamps();
-            $table->softDeletes();
+
+            $table->foreign('rayon_id')->references('id')->on('rayons')->onDelete('cascade');
         });
     }
 
