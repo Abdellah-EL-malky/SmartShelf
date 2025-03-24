@@ -9,15 +9,11 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('alertes', function (Blueprint $table) {
+        Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('produit_id');
-            $table->string('message');
-            $table->boolean('lu')->default(false);
             $table->timestamps();
-            $table->foreign('produit_id')->references('id')->on('produits')->onDelete('cascade');
         });
     }
 
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('alertes');
+        Schema::dropIfExists('stocks');
     }
 };
