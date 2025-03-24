@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Alerte extends Model
 {
     use HasFactory;
+    protected $fillable = ['produit_id', 'message', 'lu'];
+
+    public function produit()
+    {
+        return $this->belongsTo(Produit::class);
+    }
 }

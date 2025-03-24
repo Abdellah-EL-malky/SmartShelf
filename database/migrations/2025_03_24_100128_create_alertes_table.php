@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('alertes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('produit_id');
+            $table->string('message');
+            $table->boolean('lu')->default(false);
             $table->timestamps();
+            $table->foreign('produit_id')->references('id')->on('produits')->onDelete('cascade');
         });
     }
 

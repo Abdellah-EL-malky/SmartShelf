@@ -13,7 +13,11 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('produit_id');
+            $table->integer('quantite');
+            $table->integer('seuil_alerte'); // Niveau pour déclencher une alerte
             $table->timestamps();
+            $table->foreign('produit_id')->references('id')->on('produits')->onDelete('cascade');
         });
     }
 
