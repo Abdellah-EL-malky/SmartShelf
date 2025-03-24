@@ -16,6 +16,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/produits/search', [ProduitController::class, 'search']);
     Route::get('/rayons/{rayon}/produits/populaires', [ProduitController::class, 'populaires']);
     Route::get('/rayons/{rayon}/produits/promotions', [ProduitController::class, 'promotions']);
+    Route::post('/produits/{produit}/vente', [ProduitController::class, 'enregistrerVente']);
+    Route::patch('/alertes/{alerte}/lue', [StatistiqueController::class, 'marquerAlerteLue']);
+    Route::get('/statistiques/rapport-ventes', [StatistiqueController::class, 'rapportVentes']);
 
     // Routes pour les administrateurs (à protéger avec middleware admin)
     Route::middleware('admin')->group(function () {

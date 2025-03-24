@@ -3,46 +3,47 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Rayon;
 
 class RayonController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $rayons = Rayon::all();
+        return response()->json(['data' => $rayons]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $rayon = Rayon::create($request->all());
+        return response()->json(['data' => $rayon], 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Rayon $rayon)
     {
-        //
+        return response()->json(['data' => $rayon]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Rayon $rayon)
     {
-        //
+        $request->validate([
+            'nom' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ]);
+
+        $rayon->update($request->all());
+        return response()->json(['data' => $rayon]);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Rayon $rayon)
     {
-        //
+        $rayon->delete();
+        return response()->json(null, 204);
     }
+
 }
